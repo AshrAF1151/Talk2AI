@@ -6,7 +6,7 @@ export default function useElevenLabsTTS(onAudio, onError) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/tts", {
+      const res = await fetch("/api/tts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, voiceId }),
