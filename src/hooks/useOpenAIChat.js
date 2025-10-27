@@ -1,14 +1,14 @@
 import { useState, useCallback } from "react";
 import useElevenLabsTTS from "./useElevenLabsTTS";
-import { OPENAI_API_KEY, OPENAI_MODEL } from "../config";
+import { getEnv } from "../utils/env";
 
 export default function useOpenAIChat({ onReply, onAudio, onError }) {
   const [loading, setLoading] = useState(false);
   const { generateVoice } = useElevenLabsTTS(onAudio, onError);
 
   const sendToAI = useCallback(async (text, voiceId, systemPrompt, temperature) => {
-    const apiKey = OPENAI_API_KEY;
-    if (!apiKey) return onError("Missing OPENAI_API_KEY in config.js");
+    const apiKey = getEnv("VITE_OPENAI_API_KEY");
+    if (!apiKey) return onError("Missing VITE_OPENAI_API_KEY");
 
     setLoading(true);
     onReply("");
@@ -22,8 +22,7 @@ export default function useOpenAIChat({ onReply, onAudio, onError }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: OPENAI_MODEL,
-
+          model: "gpt-4o-mini",
           stream: true,
           temperature: typeof temperature === "number" ? temperature : 0.4,
           messages: [

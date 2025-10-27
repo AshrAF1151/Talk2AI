@@ -1,11 +1,11 @@
-import { ELEVENLABS_API_KEY } from "../config";
+import { getEnv } from "../utils/env";
 
 export default function useElevenLabsTTS(onAudio, onError) {
   const generateVoice = async (text, voiceId) => {
-    const elevenKey = ELEVENLABS_API_KEY;
+    const elevenKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
 
     if (!elevenKey) {
-      onError("Missing ELEVENLABS_API_KEY in config.js");
+      onError("Missing VITE_ELEVENLABS_API_KEY");
       return;
     }
 
