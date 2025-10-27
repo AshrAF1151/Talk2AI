@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import useOpenAIChat from "../hooks/useOpenAIChat";
+// import useOpenRouterChat from "../hooks/useOpenRouterChat";
 import AvatarPanel from "./AvatarPanel";
 import ChatMessage from "./ChatMessage";
 import MicButton from "./MicButton";
@@ -8,7 +9,7 @@ import JinnahImg from "../assets/Quid.png";
 import UserImg from "../assets/user-avatar.png";
 
 export default function VoiceChat() {
-  const [messages, setMessages] = useState([]); // [{sender: 'user'|'ai', text: '...'}]
+  const [messages, setMessages] = useState([]);
   const [audioUrl, setAudioUrl] = useState("");
   const [error, setError] = useState("");
   
@@ -51,6 +52,21 @@ export default function VoiceChat() {
     onAudio: setAudioUrl,
     onError: setError,
   });
+
+  // const { loading, sendToAI } = useOpenRouterChat({
+  //   onReply: (reply) => {
+  //     setMessages((prev) => {
+  //       if (prev.length && prev[prev.length - 1].sender === "ai") {
+  //         const next = [...prev];
+  //         next[next.length - 1] = { ...next[next.length - 1], text: reply };
+  //         return next;
+  //       }
+  //       return [...prev, { sender: "ai", text: reply }];
+  //     });
+  //   },
+  //   onAudio: setAudioUrl,
+  //   onError: setError,
+  // });
 
   const { listening, startListening } = useSpeechRecognition(async (text) => {
     setMessages((prev) => [...prev, { sender: "user", text }]);
