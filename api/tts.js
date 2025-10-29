@@ -23,6 +23,8 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ error: 'Missing text or voiceId' }));
     }
 
+    const pacedText = text.replace(/([.!?])/g, "$1 ...").replace(/,/g, ", ...");
+
     const elevenKey = process.env.ELEVENLABS_API_KEY;
     if (!elevenKey) {
       res.statusCode = 500;
@@ -36,9 +38,9 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text,
+        text: pacedText,
         model_id: 'eleven_multilingual_v2',
-        voice_settings: { stability: 0.4, similarity_boost: 0.9 },
+        voice_settings: { stability: 0.2, similarity_boost: 0.85 },
       }),
     });
 
