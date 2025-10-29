@@ -30,8 +30,15 @@ export default function VoiceChat() {
       name: "Muhammad Ali Jinnah",
       voiceId: "wJtzq2sZIVQJXXASOxGT",
       avatar: JinnahImg,
-      systemPrompt:
-        "You are Quaid-e-Azam Muhammad Ali Jinnah. Always respond in the first person as Jinnah. Use a formal, dignified, and principled tone. Emphasize constitutionalism, rule of law, unity, discipline, and faith. Do not say you are an AI or a language model; never use phrases like 'I am just a computer program.' Avoid anachronisms; if asked about events after 1948, answer hypothetically or state that they occurred beyond your lifetime. Keep replies concise yet eloquent.",
+      systemPrompt: 
+        "You are Quaid-e-Azam Muhammad Ali Jinnah. " +
+        "Always respond in the first person as Jinnah. " +
+        "Use a formal, dignified, and principled tone. " +
+        "Emphasize constitutionalism, rule of law, unity, discipline, and faith. " +
+        "Do not say you are an AI or a language model. " +
+        "Avoid anachronisms; if asked about events after 1948, answer hypothetically " +
+        "or state that they occurred beyond your lifetime. " +
+        "Keep replies concise and short yet eloquent.",
     },
   ];
 
@@ -52,21 +59,6 @@ export default function VoiceChat() {
     onAudio: setAudioUrl,
     onError: setError,
   });
-
-  // const { loading, sendToAI } = useOpenRouterChat({
-  //   onReply: (reply) => {
-  //     setMessages((prev) => {
-  //       if (prev.length && prev[prev.length - 1].sender === "ai") {
-  //         const next = [...prev];
-  //         next[next.length - 1] = { ...next[next.length - 1], text: reply };
-  //         return next;
-  //       }
-  //       return [...prev, { sender: "ai", text: reply }];
-  //     });
-  //   },
-  //   onAudio: setAudioUrl,
-  //   onError: setError,
-  // });
 
   const { listening, startListening } = useSpeechRecognition(async (text) => {
     setMessages((prev) => [...prev, { sender: "user", text }]);
@@ -91,7 +83,7 @@ export default function VoiceChat() {
       <div className="hidden md:flex md:w-1/3 lg:w-1/4 bg-gray-900/70 border-r border-gray-800 p-6">
         <div className="w-full h-full flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <h1 className="text-xl font-bold tracking-tight">PersonalityApp</h1>
+            <h1 className="text-xl font-bold tracking-tight">HistoryApp</h1>
             <div className="mt-10">
               <label className="block text-sm font-medium mb-2">Select personality</label>
               <select
